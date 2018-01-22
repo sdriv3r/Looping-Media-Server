@@ -118,7 +118,7 @@ static ServerMediaSession* createNewSMS(UsageEnvironment& env,
 	Boolean const reuseSource = False;
 	if (strcmp(extension, ".mkv") == 0 || strcmp(extension, ".webm") == 0) {
 		// Assumed to be a Matroska file (note that WebM ('.webm') files are also Matroska files)
-		OutPacketBuffer::maxSize = 100000; // allow for some possibly large VP8 or VP9 frames
+		OutPacketBuffer::maxSize = 5000000; // allow for some possibly large VP8 or VP9 frames
 		NEW_SMS("Matroska video+audio+(optional)subtitles");
 
 		// Create a Matroska file server demultiplexor for the specified file.

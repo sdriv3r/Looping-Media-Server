@@ -61,7 +61,7 @@ int main(int argc, char** argv)
 
 	char* urlPrefix = rtspServer->rtspURLPrefix();
 	*env << "Play streams from this server using the URL\n\t"
-		<< urlPrefix << "<filename>\nwhere <filename> is a MKV file present in the current directory.\n";
+		<< urlPrefix << "<filename>\nwhere <filename> is a MKV file present in the current directory.\n\n";
 
 	env->taskScheduler().doEventLoop(); // does not return
 
