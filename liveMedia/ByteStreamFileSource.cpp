@@ -50,6 +50,20 @@ ByteStreamFileSource::createNew(UsageEnvironment& env, FILE* fid,
   return newSource;
 }
 
+u_int64_t ByteStreamFileSource::getFilePosition()
+{
+	fpos_t position;
+	fgetpos(fFid, &position);
+
+	return position;
+}
+
+void ByteStreamFileSource::seekFileBegin()
+{
+	fpos_t position = 0;
+	fsetpos(fFid, &position);
+}
+
 void ByteStreamFileSource::seekToByteAbsolute(u_int64_t byteNumber, u_int64_t numBytesToStream) {
   SeekFile64(fFid, (int64_t)byteNumber, SEEK_SET);
 
@@ -93,7 +107,18 @@ ByteStreamFileSource::~ByteStreamFileSource() {
 }
 
 void ByteStreamFileSource::doGetNextFrame() {
-  if (feof(fFid) || ferror(fFid) || (fLimitNumBytesToStream && fNumBytesToStream == 0)) {
+	if (feof(fFid))
+	{
+		handleClosure();
+		return;
+	}
+	if (ferror(fFid))
+	{
+		handleClosure();
+		return;
+	}
+	if ((fLimitNumBytesToStream && fNumBytesToStream == 0)) 
+	{
     handleClosure();
     return;
   }

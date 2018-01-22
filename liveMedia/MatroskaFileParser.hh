@@ -52,6 +52,8 @@ public:
 
   void seekToTime(double& seekNPT);
 
+  void restartPlayback();
+
   // StreamParser 'client continue' function:
   static void continueParsing(void* clientData, unsigned char* ptr, unsigned size, struct timeval presentationTime);
   void continueParsing();
@@ -121,7 +123,7 @@ private:
   unsigned* fFrameSizesWithinBlock;
 
   // Parameters of the most recently-parsed frame within a 'Block':
-  double fPresentationTimeOffset;
+  double fPresentationTimeOffset, fLastPresentationTime;
   unsigned fNextFrameNumberToDeliver;
   unsigned fCurOffsetWithinFrame, fSavedCurOffsetWithinFrame; // used if track->haveSubframes()
 

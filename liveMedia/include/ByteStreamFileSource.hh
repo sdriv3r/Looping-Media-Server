@@ -44,6 +44,9 @@ public:
   u_int64_t fileSize() const { return fFileSize; }
       // 0 means zero-length, unbounded, or unknown
 
+  u_int64_t getFilePosition();
+  void seekFileBegin();
+
   void seekToByteAbsolute(u_int64_t byteNumber, u_int64_t numBytesToStream = 0);
     // if "numBytesToStream" is >0, then we limit the stream to that number of bytes, before treating it as EOF
   void seekToByteRelative(int64_t offset, u_int64_t numBytesToStream = 0);
